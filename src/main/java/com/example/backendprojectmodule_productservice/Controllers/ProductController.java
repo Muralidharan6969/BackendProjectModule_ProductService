@@ -1,8 +1,6 @@
 package com.example.backendprojectmodule_productservice.Controllers;
 
 import com.example.backendprojectmodule_productservice.Commons.AuthenticationCommons;
-import com.example.backendprojectmodule_productservice.DTOs.Role;
-import com.example.backendprojectmodule_productservice.DTOs.UserDTO;
 import com.example.backendprojectmodule_productservice.Models.Product;
 import com.example.backendprojectmodule_productservice.Services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +14,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    private ProductServiceInterface fakeStoreAPIExecution;
+    private ProductServiceInterface productServiceInterface;
     private AuthenticationCommons authenticationCommons;
 
     @Autowired
-    public ProductController(@Qualifier("fakeStoreAPIExecution") ProductServiceInterface fakeStoreAPIExecution,
+    public ProductController(ProductServiceInterface productServiceInterface,
                              AuthenticationCommons authenticationCommons) {
-        this.fakeStoreAPIExecution = fakeStoreAPIExecution;
+        this.productServiceInterface = productServiceInterface;
         this.authenticationCommons = authenticationCommons;
     }
 
@@ -47,41 +45,41 @@ public class ProductController {
 //        }
 
         //throw new RuntimeException("This is a test exception");
-        return new ResponseEntity<>(fakeStoreAPIExecution.getAllProducts(), HttpStatus.OK) ;
+        return new ResponseEntity<>(productServiceInterface.getAllProducts(), HttpStatus.OK) ;
     }
 
     @GetMapping("/{id}")
     public Product getProductById(@PathVariable("id") Long id) {
-        return fakeStoreAPIExecution.getProductById(id);
+        return productServiceInterface.getProductById(id);
     }
 
     @PostMapping("")
     public Product addProduct(@RequestBody Product product) {
-        return fakeStoreAPIExecution.addProduct(product);
+        return productServiceInterface.addProduct(product);
     }
 
     @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id ,@RequestBody Product product) {
-        return fakeStoreAPIExecution.updateProduct(id, product);
+        return productServiceInterface.updateProduct(id, product);
     }
 
     @PutMapping("/{id}")
     public Product replaceProduct(@PathVariable("id") Long id ,@RequestBody Product product) {
-        return fakeStoreAPIExecution.replaceProduct(id, product);
+        return productServiceInterface.replaceProduct(id, product);
     }
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable("id") Long id) {
-        fakeStoreAPIExecution.deleteProduct(id);
+        productServiceInterface.deleteProduct(id);
     }
 
     @GetMapping("/categories")
     public List<String> getAllCategories(){
-        return fakeStoreAPIExecution.getAllCategories();
+        return productServiceInterface.getAllCategories();
     }
 
     @GetMapping("/category/{name}")
     public List<Product> getProductsByCategory(@PathVariable("name") String categoryName){
-        return fakeStoreAPIExecution.getProductsByCategory(categoryName);
+        return productServiceInterface.getProductsByCategory(categoryName);
     }
 }

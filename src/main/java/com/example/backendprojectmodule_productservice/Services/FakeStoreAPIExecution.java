@@ -4,6 +4,7 @@ import com.example.backendprojectmodule_productservice.DTOs.FakeStoreToProductDT
 import com.example.backendprojectmodule_productservice.Models.Category;
 import com.example.backendprojectmodule_productservice.Models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service("fakeStoreAPIExecution")
+//@Primary
 public class FakeStoreAPIExecution implements ProductServiceInterface{
     private RestTemplate restTemplate;
     private RedisTemplate redisTemplate;
